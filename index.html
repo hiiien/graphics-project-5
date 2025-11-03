@@ -3,11 +3,53 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>WebGL2 Renderer</title>
+	<style>
+		body {
+			margin: 0;
+			background: #111;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		canvas {
+			border: 1px solid #333;
+		}
+	</style>
 </head>
 
 <body>
-	<canvas id="canvas" width="500" height="500"></canvas>
+	<canvas id="canvas" width="1000" height="800"></canvas>
+
+	<script id="vertex-shader" type="x-shader/x-vertex">
+  #version 300 es
+  precision highp float;
+
+  in vec3 a_position;
+  uniform mat4 u_matrix;
+
+  void main() {
+    gl_Position = u_matrix * vec4(a_position, 1.0);
+  }
+  </script>
+
+	<script id="fragment-shader" type="x-shader/x-fragment">
+  #version 300 es
+  precision highp float;
+
+  uniform vec4 u_color;
+  out vec4 outColor;
+
+  void main() {
+    outColor = u_color;
+  }
+  </script>
+	<script src="../Common/MVnew.js"></script>
+	<script src="../Common/flatten.js"></script>
+	<script src="../Common/utility.js"></script>
+	<script src="texmap.js"></script>
 </body>
 
 </html>
